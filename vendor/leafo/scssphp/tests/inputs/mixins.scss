@@ -1,0 +1,99 @@
+
+@mixin something {
+    color: red;
+    pre {
+        height: 200px;
+    }
+}
+
+div {
+    color: blue;
+    @include something;
+}
+
+@mixin something($color) {
+    color: $color;
+
+    div {
+        height: 20px;
+    }
+}
+
+@mixin cool($a, $b, $c) {
+    height: $a + $b + $c;
+}
+
+span {
+    @include something(blue);
+}
+
+html {
+    @include cool(10px, 12px, 21px);
+}
+
+
+@mixin hello_world {
+    height: 20px;
+}
+
+del {
+    @include hello-world;
+}
+
+
+// variable shadowing
+
+
+$color: white;
+@mixin colors($color: blue) {
+    color: $color;
+}
+
+div {
+    color: $color;
+    @include colors();
+    color: $color;
+}
+
+@mixin linear-gradient($from, $to, $pos: left top) {
+  background-image: linear-gradient($pos, $from, $to);
+}
+
+div {
+    @include linear-gradient(red, green);
+}
+
+@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+div {
+    @include box-shadow(10px 10px 5px #888);
+    @include box-shadow(inset 10px 10px #888, -10px -10px #f4f4f4);
+}
+
+@mixin nested {
+    @include something(red);
+}
+
+div {
+    p  {
+        .class {
+            @include nested;
+        }
+
+        @include nested;
+
+        .top {
+            top: 0;
+            
+            div {
+                color: red;
+            }
+        }
+
+        color: blue;
+    }
+}
