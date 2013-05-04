@@ -85,7 +85,9 @@ class Sprockets_Parser extends Sprockets_Cache
 
 		# Clean up and flatten
 		$subfiles 	= \Arr::flatten($subfiles, '_');
-		$subfiles		= \Arr::filter_recursive($subfiles);
+		$subfiles		= array_filter($subfiles, function($item){
+			return ! empty($item);
+		});
 		$file_list 	= array_merge(array_unique($subfiles), array($file_path));
 
 		return $this->process_files($file_list, $file);

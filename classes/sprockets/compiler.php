@@ -28,7 +28,9 @@ class Sprockets_Compiler
 		$Less, 						// Less Compiler
 		$File;						// File Interface
 
-	protected $file_path, $minify;
+	protected $file_path, 
+		$file_import_dir, // @import fix for Scss
+		$minify;
 
 	/**
 	 * Initlize the class and create reference to Sprockets_File
@@ -51,6 +53,7 @@ class Sprockets_Compiler
 
 		$this->minify = $minify;
 		$this->file_path = $file_path;
+		$this->file_import_dir = dirname($this->file_path);
 
 		# Get the source
 		$source = $this->File->read_source($file_path);
@@ -102,6 +105,10 @@ class Sprockets_Compiler
 
 		# Initialise the Compass Compiler
 		$this->Compass = new \scssc();
+
+		# @import file not found fix
+		$this->Compass->addImportPath($this->file_import_dir);
+		
 		new \scss_compass($this->Compass);
 
 		# Compile the source

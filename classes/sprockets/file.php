@@ -114,7 +114,9 @@ class Sprockets_File
 		$file_list 	= \Arr::flatten($files, '_');
 
 		# Remove empty values
-		$file_list 	= \Arr::filter_recursive($file_list);
+		$file_list 	= array_filter($file_list, function($item){
+			return ! empty($item);
+		});
 
 		# Remove duplicates
 		return array_unique($file_list);
