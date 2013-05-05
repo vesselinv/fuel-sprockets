@@ -44,7 +44,11 @@ To use Fuel Sprockets, you will need the following asset structure:
             js/
             css/
 
-Fuel Sprockets will automatically create its cache folder. You will however need to create
+You should be placing your asset files inside `app/assets/*` and that's where Fuel Sprockets will
+expect to find them. This ensures separation of development files from production bundles. It
+also makes them publicly unaccessible.
+
+The package will automatically create its cache folder. You will however need to create
 `app/assets/js/` and `app/assets/css/`
 
 # Convention over Configuration #
@@ -98,11 +102,11 @@ File paths can also be wrapped in single `'` or double `"` quotes.
 
 Fuel Sprockets understands comment blocks in three formats:
 
-    /* Multi-line comment blocks (CSS, SCSS, JavaScript)
+    /* Multi-line comment blocks (CSS, SCSS, Less, JavaScript)
      *= require 'foo.js'
      */
 
-    // Single-line comment blocks (SCSS, JavaScript)
+    // Single-line comment blocks (SCSS, Less, JavaScript)
     //= require "foo.scss"
 
     # Single-line comment blocks (CoffeeScript)
@@ -150,6 +154,15 @@ Fuel Sprockets is smart about caching. The final compiled source for each file t
 included in your bundles in cached inside `fuel/app/cache/sprockets`. The Last Modified
 timestamp and minification flag (`.min`) are appended to the filename so that we can 
 compare when your asset file has changed and whether the generated file is up-to-date.
+
+# Running Tests #
+
+I've prepared a Test Case with a set of files that will test all of the supported directives,
+compilers and minifier. To run the tests, simply use oil:
+
+    $ oil t
+
+And watch the cache and compile folders inside tests/ get filled with bundles.
 
 # License #
 

@@ -1,0 +1,10 @@
+//= require_tree vendor
+
+@import "compass";
+
+$padding: 2px;
+
+a:link {
+	@include inline-block;
+	padding: $padding;
+}

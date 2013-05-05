@@ -1,0 +1,10 @@
+//= require vendor/bootstrap.css
+
+@import "compass";
+
+$padding: 2px;
+
+a:link {
+	@include inline-block;
+	padding: $padding;
+}
