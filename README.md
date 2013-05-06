@@ -142,6 +142,13 @@ Fuel Sprockets comes with php ports of [Sass/Compass](https://github.com/leafo/s
 without having to have these gems installed - in fact, no Ruby installation is
 needed either - all is handled through php.
 
+*Note:* The package will expect to find CoffeeScripts inside your JS Asset Root
+(`fuel/app/assets/js/` by default) along with vanilla Js file, and Scss and Less stylesheeets
+inside your CSS Root Dir (`fuel/app/assets/css/` by default) along with vanilla Css. Some may 
+say why mix up Js with Coffee and Css with Sass and Less and the answer simply is because 
+in the end they all get compiled to plain Js and Css respectively. At a future point, if requested,
+I may add support for separating them into different folders.
+
 # Minification #
 
 All Sprockets files will be automatically minified if your `Fuel::$env` is set to 
