@@ -171,6 +171,13 @@ compilers and minifier. To run the tests, simply use oil:
 
 And watch the cache and compile folders inside tests/ get filled with bundles.
 
+# Precompiling your Bundles #
+
+A Fuel Task is available through `oil` to precompile and minify your bundles.
+
+    $ oil r sprockets:js application.js
+    $ oil r sprockets:css application.scss
+
 # License #
 
 Copyright &copy; 2013 Veselin Vasilev  [@vesselinv](https://twitter.com/vesselinv)
