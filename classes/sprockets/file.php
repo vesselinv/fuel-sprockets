@@ -35,9 +35,9 @@ class Sprockets_File
 	 */
 	public function read_source($file)
 	{
-		if ( file_exists($file) )
+		if ( $source = file_get_contents($file) )
 		{
-			return file_get_contents($file);
+			return $source;
 		} else {
 			throw new FileNotFound("File $file could not be found.", 1);
 		}
@@ -70,7 +70,7 @@ class Sprockets_File
 	/**
 	 * @access 	public
 	 * @param 	string filepath
-	 * @return 	string last modified time n UTC
+	 * @return 	int last modified time in UTC
 	 */
 	public function get_filemtime($file_path)
 	{
@@ -78,6 +78,23 @@ class Sprockets_File
 			throw new FileNotFound("Could not get Last Modified Date for $file_path", 1);
 		}
 		return filemtime($file_path);
+	}
+
+	/**
+	 * @access 	public
+	 * @param 	string url
+	 * @return 	int last modified time in UTC
+	 */
+	public function get_remotemtime($url)
+	{
+		$h = get_headers($url, 1);
+
+		if ( ! empty($h) && strstr($h[0], '200') !== FALSE ) {
+		    return strtotime($h['Last-Modified']);
+		} else {
+			throw new FileException("Could not get Last Modified Date for $url", 1);
+			
+		}
 	}
 	
 	/**

@@ -62,10 +62,26 @@ class Sprockets_Cache
 			break;
 		}
 
-		$mod_dates = array();
-		//get modification times of all files
+		$mod_dates = array();	# Store only mod_dates
+		$file_list = array(); # Store both mod_date and path for each file
+
+		# Get modification times of all files
 		foreach ($filename_list as $i => $file) {
-			$mod_dates[] = $this->File->get_filemtime($file);
+
+			if ( ! $this->match_remote_url($file))
+			{
+				$mod_date = $this->File->get_filemtime($file); # Local file
+			}
+			else 
+			{
+				$mod_date = $this->File->get_remotemtime($file); # Remote file
+			}
+
+			$mod_dates[] = $mod_date;
+			$file_list[] = array(
+				"path" => $file,
+				"mod_date" => $mod_date
+			);
 		}
 
 		$this->sprockets_file_timestamp = md5(implode('', $mod_dates));
@@ -79,7 +95,7 @@ class Sprockets_Cache
 		if ( file_exists($this->sprockets_file_full_path) ) {
 			return $this->generate_include_tag();
 		} else {
-			return $this->reprocess_files($filename_list);
+			return $this->reprocess_files($file_list);
 		}
 
 	}
@@ -87,33 +103,47 @@ class Sprockets_Cache
 	/**
 	 * Iterate over modified files referenced in manifest
 	 * @access protected
-	 * @param  array filename_list
+	 * @param  array file_list
 	 * @return string sprockets_include_tag
 	 */
 	protected function reprocess_files($filename_list) {
 
 		$compiled_source = "";
+		$mod_date;
 
 		foreach ($filename_list as $i => $file) {
 
-			$mod_date = $this->File->get_filemtime($file);
-			$relative_path = explode($this->file_asset_dir, $file)[1];
+			$mod_date = $file["mod_date"];
 
-			$filename = substr($relative_path, 0, strrpos($relative_path, "."));
-			$filename = str_replace("/", "-", $filename);
+			# For local files
+			if ( ! $this->match_remote_url($file["path"]) )
+			{
+				$relative_path = explode($this->file_asset_dir, $file["path"])[1];
 
-			$ext = substr($relative_path, strrpos($relative_path, '.') + 1);
+				$filename = substr($relative_path, 0, strrpos($relative_path, "."));
+				$filename = str_replace("/", "-", $filename);
 
-			$expected_cached_file = 
-				$this->file_cache_dir . $filename . "_" . $mod_date . $this->minify_flag . "." . $ext;
+				$ext = substr($relative_path, strrpos($relative_path, '.') + 1);
 
+				$expected_cached_file = 
+					$this->file_cache_dir . $filename . "_" . $mod_date . $this->minify_flag . "." . $ext;
+			}
+			else
+			{
+				# For remote files
+				$filename = str_replace(array(":", "/"), "-", $file["path"]);
+
+				$expected_cached_file = $this->file_cache_dir . $filename;
+			}
+
+			# Pull up the file or recompile it if does not exist
 			if ( file_exists($expected_cached_file) ) {
 				
 				$compiled_source .= $this->File->read_source($expected_cached_file);
 
 			} else {
 
-				$source = $this->Compiler->compile($file, $this->minify);
+				$source = $this->Compiler->compile($file["path"], $this->minify);
 				$save = $this->File->save_file($expected_cached_file, $source);
 
 				# Call GC
@@ -143,7 +173,7 @@ class Sprockets_Cache
 	}
 
 	/**
-	 * Garbage Collection fr stale files
+	 * Garbage Collection for stale files
 	 * @access protected
 	 * @param  string glob_pattern
 	 * @param  string file_to_keep
@@ -157,5 +187,16 @@ class Sprockets_Cache
 		}
 	}
 
+	/**
+	 * Check if required file is an external source
+	 * @access protected
+	 * @param  string url
+	 * @return bool
+	 */
+	protected function match_remote_url($url)
+	{
+		preg_match_all ('/((ht|f)tps?:\/\/([\w\.]+\.)?[\w-]+(\.[a-zA-Z]{2,4})?[^\s\r\n\(\)"\'<>\,\!]+)/si', $url, $urls);
+		return ! empty($urls[1]);
+	}
 
 }

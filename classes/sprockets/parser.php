@@ -122,15 +122,26 @@ class Sprockets_Parser extends Sprockets_Cache
 			switch ($directive) {
 
 				case 'require':
-					// Recursively add subfiles
-					$source = $this->File->read_source($directory . $parameter);
-					$subfiles = $this->parse_directives($source, $asset_dir);
 
-					foreach ($subfiles as $key => $value) {
-						$filepaths_to_include[] = $this->d_require($value);
+					# Are we dealing with a local or remote file?
+					if ( ! $this->match_remote_url($parameter) )
+					{
+						// Recursively add subfiles
+						$source = $this->File->read_source($directory . $parameter);
+						$subfiles = $this->parse_directives($source, $asset_dir);
+
+						foreach ($subfiles as $key => $value) {
+							$filepaths_to_include[] = $this->d_require($value);
+						}
+
+						$filepaths_to_include[] = $this->d_require($directory . $parameter);
 					}
-
-					$filepaths_to_include[] = $this->d_require($directory . $parameter);
+					else
+					{
+						# The file is remote
+						$filepaths_to_include[] = $this->d_require($parameter);
+					}
+					
 				break;
 
 				case 'require_directory':

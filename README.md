@@ -121,7 +121,8 @@ source files.
 
 `require` *path* inserts the contents of the asset source file
 specified by *path*. If anywhere in the scanned files *path* is duplicated,
-it will only be inserted once at the first `require` spot.
+it will only be inserted once at the first `require` spot. Also supports remote
+files from CDNs.
 
 ### The `require_directory` Directive ###
 

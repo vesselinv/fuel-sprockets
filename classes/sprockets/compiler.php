@@ -182,7 +182,7 @@ class Sprockets_Compiler
 		{
 			return \JSMin::minify( $source );
 		} else {
-			return "\n\n/** ". $this->file_path . " **/\n\n" . $source;
+			return "\n\n/** ". $this->file_path . " **/\n\n;" . $source;
 		}
 
 	}
