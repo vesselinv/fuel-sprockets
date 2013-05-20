@@ -118,7 +118,9 @@ class Sprockets_Cache
 			# For local files
 			if ( ! $this->match_remote_url($file["path"]) )
 			{
-				$relative_path = explode($this->file_asset_dir, $file["path"])[1];
+				$file_path 				= $file["path"];
+				$file_path_parts 	= explode($this->file_asset_dir, $file_path);
+				$relative_path 		= $file_path_parts[1];
 
 				$filename = substr($relative_path, 0, strrpos($relative_path, "."));
 				$filename = str_replace("/", "-", $filename);
