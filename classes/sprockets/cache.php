@@ -170,8 +170,14 @@ class Sprockets_Cache
 	 * @return string sprockets_include_tag
 	 */
 	protected function generate_include_tag() {
-		$asset_dir = str_replace(DOCROOT, "/", $this->asset_compile_dir);
-		return str_replace("{FILE}", $asset_dir . $this->file_asset_dir . $this->sprockets_filename, $this->include_tag);
+		$asset_dir = str_replace(DOCROOT, "", $this->asset_compile_dir);
+
+		$file_path = $this->base_url . 
+			$asset_dir . 
+			$this->file_asset_dir . 
+			$this->sprockets_filename;
+
+		return str_replace("{FILE}", $file_path, $this->include_tag);
 	}
 
 	/**

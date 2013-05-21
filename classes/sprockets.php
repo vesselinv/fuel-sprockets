@@ -55,6 +55,7 @@ class Sprockets
 			'asset_root_dir' 				=> APPPATH . 'assets/',
 			'asset_compile_dir' 		=> DOCROOT . 'assets/',
 			'cache_dir'							=> APPPATH . 'cache/sprockets/',
+			'base_url'							=> \Uri::base(false),
 			'js_dir' 								=> 'js/',
 			'css_dir'								=> 'css/',
 			'force_minify'					=> true

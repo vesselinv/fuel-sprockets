@@ -26,6 +26,7 @@ class Sprockets_Parser extends Sprockets_Cache
 		$cache_css_dir,				// Stylesheets folder inside Sprockets Cache Directory
 		$asset_root_dir,			// The Asset Directory
 		$asset_compile_dir,		// Asset Compile Directory
+		$base_url,						// The Base URL to be prepended to the bundle path
 		$js_dir,							// Javascripts subdirectory
 		$css_dir,							// Stylesheets subdirectory
 		$force_minify,				// Force Minify if Fuel::$env !== "production"

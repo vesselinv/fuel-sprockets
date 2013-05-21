@@ -100,7 +100,7 @@ class Test_Sprockets extends \PHPUnit_Framework_TestCase
         foreach ($node as $node) {
           $file = $node->getAttribute("src");
         }
-
+        $file = str_replace(\Uri::base(false), "", $file);
         $this->assertFileExists(DOCROOT . $file);
       }
 
@@ -112,7 +112,7 @@ class Test_Sprockets extends \PHPUnit_Framework_TestCase
         foreach ($node as $node) {
           $file = $node->getAttribute("href");
         }
-
+        $file = str_replace(\Uri::base(false), "", $file);
         $this->assertFileExists(DOCROOT . $file);
       }
     }    

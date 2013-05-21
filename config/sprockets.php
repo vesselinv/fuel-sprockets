@@ -55,6 +55,18 @@ return array(
 	'cache_dir'							=> APPPATH . 'cache/sprockets/',
 
 	/**
+	 * base_url - The base URL of your site
+	 * MUST contain a trailing slash (/)
+	 *
+	 * This will be prepended to the file path in the generated include tag
+	 * Example:
+	 * 'base_url' => "http://localhost:8000/"
+	 * Requested bundle file is application.js
+	 * Generated Include tag will be <script scr="http://localhost:8000/assets/js/application.js"></script>
+	 */
+	'base_url'							=> \Uri::base(false),
+
+	/**
 	 * js_dir - Subdirectory name for javascripts and coffeescripts
 	 * MUST contain a trailing slash (/)
 	 *
