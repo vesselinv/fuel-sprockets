@@ -50,6 +50,7 @@ class Sprockets_Parser extends Sprockets_Cache
 		$this->asset_root_dir 		= $config['asset_root_dir'];
 		$this->asset_compile_dir 	= $config['asset_compile_dir'];
 		$this->js_dir							= $config['js_dir'];
+		$this->base_url 					= $config['base_url'];
 		$this->css_dir						= $config['css_dir'];
 		$this->force_minify				= $config['force_minify'];
 
