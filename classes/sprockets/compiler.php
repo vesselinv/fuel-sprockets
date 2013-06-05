@@ -124,7 +124,12 @@ class Sprockets_Compiler
 	 * @return 	string 	compiled source
 	 */
 	protected function compile_less($source) {
+
+		# Init the Less compiler
 		$this->Less = new \lessc();
+
+		# Add @import base path
+		$this->Less->addImportDir($this->file_import_dir);
 
 		$less = $this->Less->compile( $source );
 		return $this->minify_css( $less );
