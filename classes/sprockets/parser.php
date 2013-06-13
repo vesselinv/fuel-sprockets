@@ -119,7 +119,7 @@ class Sprockets_Parser extends Sprockets_Cache
 
 		foreach($matches[0] as $key => $match) {
 			$directive = $matches[2][$key];
-			$parameter = str_replace(array('\'', '"'), '', $matches[3][$key]); # Strip off single and double quotes
+			$parameter = str_replace(array('\'', '"'), '', trim($matches[3][$key])); # Strip off single and double quotes
 
 			switch ($directive) {
 

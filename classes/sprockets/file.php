@@ -35,7 +35,9 @@ class Sprockets_File
 	 */
 	public function read_source($file)
 	{
-		if ( $source = file_get_contents($file) )
+		$path = trim($file);
+
+		if ( $source = file_get_contents($path) )
 		{
 			return $source;
 		} else {
@@ -51,7 +53,9 @@ class Sprockets_File
 	 */
 	public function save_file($file_path, $source)
 	{
-		if ( ! $save = file_put_contents($file_path, $source) )
+		$path = trim($file_path);
+
+		if ( ! $save = file_put_contents($path, $source) )
 		{
 			throw new FileException("$file_path could not be saved. Do you have write permissions?", 1);
 		}
@@ -64,7 +68,9 @@ class Sprockets_File
 	 */
 	public function get_extension($file_path)
 	{
-		return pathinfo($file_path, PATHINFO_EXTENSION);
+		$path = trim($file_path);
+
+		return pathinfo($path, PATHINFO_EXTENSION);
 	}
 
 	/**
@@ -74,10 +80,12 @@ class Sprockets_File
 	 */
 	public function get_filemtime($file_path)
 	{
-		if ( ! is_file($file_path) ) {
-			throw new FileNotFound("Could not get Last Modified Date for $file_path", 1);
+		$path = trim($file_path);
+
+		if ( ! is_file($path) ) {
+			throw new FileNotFound("Could not get Last Modified Date for $path", 1);
 		}
-		return filemtime($file_path);
+		return filemtime($path);
 	}
 
 	/**
@@ -87,7 +95,7 @@ class Sprockets_File
 	 */
 	public function get_remotemtime($url)
 	{
-		$h = get_headers($url, 1);
+		$h = get_headers(trim($url), 1);
 
 		if ( ! empty($h) && strstr($h[0], '200') !== FALSE ) {
 		    return strtotime($h['Last-Modified']);
