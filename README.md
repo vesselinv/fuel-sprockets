@@ -31,18 +31,18 @@ Fuel Sprockets will automatically generate your bundle file into your `public/as
 To use Fuel Sprockets, you will need the following asset structure:
 
     fuel/
-        app/
-            assets/
-                js/
-                css/
-            cache/
-                sprockets/
-                    js/
-                    css/
+    |-- app/
+    |    |-- assets/
+    |    |    |-- js/
+    |    |    |-- css/
+    |    |-- cache/
+    |    |    |-- sprockets/
+    |    |         |-- js/
+    |    |         |-- css/
     public/
-        assets/
-            js/
-            css/
+    |-- assets/
+    |    |-- js/
+    |    |-- css/
 
 You should be placing your asset files inside `app/assets/*` and that's where Fuel Sprockets will
 expect to find them. This ensures separation of development files from production bundles. It
@@ -59,12 +59,13 @@ by copying `config/sprockets.php` into your `fuel/app/config` directory
 
     <?php
     return array(
-      'asset_root_dir'             => APPPATH . 'assets/',
+      'asset_root_dir'          => APPPATH . 'assets/',
       'asset_compile_dir'       => DOCROOT . 'assets/',
-      'cache_dir'                     => APPPATH . 'cache/sprockets/',
-      'js_dir'                            => 'js/',
-      'css_dir'                         => 'css/',
-      'force_minify'                 => false
+      'cache_dir'               => APPPATH . 'cache/sprockets/',
+      'js_dir'                  => 'js/',
+      'css_dir'                 => 'css/',
+      'base_url'                => \Uri::base(false),
+      'force_minify'            => false
     );
 
 # How to Use  #
@@ -76,8 +77,8 @@ Inside your views, simply invoke your bundle file just as you would with `Asset`
 
 The above will produce:
 
-      <script src="/assets/js/application_0004abf4a2950d49d237ecd9112fc233.js" type="text/javascript"></script>
-      <link rel="stylesheet" href="/assets/css/application_73afabf115045b19bfa32fa25de2861e.css">
+      <script src="http://localhost:8000/assets/js/application_0004abf4a2950d49d237ecd9112fc233.js" type="text/javascript"></script>
+      <link rel="stylesheet" href="http://localhost:8000/assets/css/application_73afabf115045b19bfa32fa25de2861e.css">
 
 ## The Directive Parser ##
 
@@ -178,6 +179,21 @@ A Fuel Task is available through `oil` to precompile and minify your bundles.
 
     $ oil r sprockets:js application.js
     $ oil r sprockets:css application.scss
+
+These tasks come in very handy when deploying with Capistrano. Simply define a
+task in your deploy.rb
+
+    namespace :deploy do
+        desc "Precompile Assets"
+        task :sprockets do
+            run [ "cd #{latest_release}", 
+                "php oil refine sprockets:js application.coffee",
+                "php oil refine sprockets:css application.scss"
+              ].join("; ")
+        end
+    end
+    
+    after "deploy:migrate", "deploy:sprockets"
 
 # License #
 
