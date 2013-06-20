@@ -37,8 +37,8 @@ To use Fuel Sprockets, you will need the following asset structure:
     |    |    |-- css/
     |    |-- cache/
     |    |    |-- sprockets/
-    |    |         |-- js/
-    |    |         |-- css/
+    |    |    |    |-- js/
+    |    |    |    |-- css/
     public/
     |-- assets/
     |    |-- js/
@@ -194,6 +194,16 @@ task in your deploy.rb
     end
     
     after "deploy:migrate", "deploy:sprockets"
+
+# Roadmap #
+
+The following improvements are on my list:
+
+* Support for image processing when referenced in Scss, Less and Css assets.
+* Support for fonts referenced in css assets - copy font files from `asset_root_dir` to `compile_dir`
+* Config option for image quality
+* Additional Config options for the CoffeeScript, Scss/Compass and Less compilers
+* Make package installable through Composer after the future release of Fuel that will support this.
 
 # License #
 
