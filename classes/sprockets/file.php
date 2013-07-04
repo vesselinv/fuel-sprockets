@@ -41,16 +41,16 @@ class Sprockets_File
 		{
 			return $source;
 		} else {
-			throw new FileNotFound("File $file could not be found.", 1);
+			throw new SprocketsFileNotFoundException("File $file could not be found.", 1);
 		}
-	}	
+	}
 
 	/**
 	 * @access 	public
 	 * @param 	string filepath
 	 * @param 	string source
 	 * @return 	void
-	 * @throws	FileException
+	 * @throws	SprocketsFileException
 	 */
 	public function save_file($file_path, $source)
 	{
@@ -58,7 +58,7 @@ class Sprockets_File
 
 		if ( ! $save = file_put_contents($path, $source) )
 		{
-			throw new FileException("$file_path could not be saved. Do you have write permissions?", 1);
+			throw new SprocketsFileException("$file_path could not be saved. Do you have write permissions?", 1);
 		}
 	}
 
@@ -68,7 +68,7 @@ class Sprockets_File
 	 * @param 	string 	origin
 	 * @param 	string 	destination
 	 * @return 	void
-	 * @throws 	FileNotFound|FileException
+	 * @throws 	SprocketsFileNotFoundException|SprocketsFileException
 	 */
 	public function copy_file($path, $new_path)
 	{
@@ -80,7 +80,7 @@ class Sprockets_File
 
 		if ( ! is_file($origin) )
 		{
-			throw new FileNotFound("File $origin does not exist.", 1);
+			throw new SprocketsFileNotFoundException("File $origin does not exist.", 1);
 		}
 		
 		# What if the destination already exist?
@@ -112,7 +112,7 @@ class Sprockets_File
 
 			if ( $replace == true )
 			{
-				\File::delete($destination);				
+				\File::delete($destination);
 			}
 
 			if ( $skip == false )
@@ -121,7 +121,7 @@ class Sprockets_File
 			}
 
 		} catch (\Exception $e) {
-			throw new FileException($e->getMessage(), 1);					
+			throw new SprocketsFileException($e->getMessage(), 1);
 		}
 
 	}
@@ -148,7 +148,7 @@ class Sprockets_File
 		$path = trim($file_path);
 
 		if ( ! is_file($path) ) {
-			throw new FileNotFound("Could not get Last Modified Date for $path", 1);
+			throw new SprocketsFileNotFoundException("Could not get Last Modified Date for $path", 1);
 		}
 		return filemtime($path);
 	}
@@ -165,7 +165,7 @@ class Sprockets_File
 		if ( ! empty($h) && strstr($h[0], '200') !== FALSE ) {
 		    return strtotime($h['Last-Modified']);
 		} else {
-			throw new FileException("Could not get Last Modified Date for $url", 1);
+			throw new SprocketsFileException("Could not get Last Modified Date for $url", 1);
 			
 		}
 	}
@@ -180,36 +180,56 @@ class Sprockets_File
 		# Add traling slash
 		$folder = $this->fix_trailing_slash($dir_path); 
 
-		# Scan entire directory
-		$scan = array_diff(scandir($folder), array('..', '.'));
-
-		$files = array();
-		foreach ($scan as $key => $file) {
-
-			$fullpath = $folder . $file;
-			$ext = pathinfo($fullpath, PATHINFO_EXTENSION);
-
-			# Add file to final file list
-			is_file($fullpath) && in_array($ext, $this->accepted_file_types) 
-				and $files[] = $fullpath;
-
-			if ( is_dir($folder . $file) && $recursive == true ) {
-
-				$subdir = $this->fix_trailing_slash( $folder . $file );
-				$files[] = $this->get_files_in_dir($subdir .'/', $recursive);				
-			}
+		$types = array();
+		foreach ($this->accepted_file_types as $key => $value) {
+			$type["\.". $value. "$"] = "file";
 		}
 
-		# Flatten the array
-		$file_list 	= \Arr::flatten($files, '_');
+		$scan = array();
+		try {
+			
+			# Scan entire directory
+			$scan = \File::read_dir(
+				$folder,
+				( $recursive == false ? 1 : 0 ),
+				# Exclude files/dirs that start with . and allow accepted filetypes only
+				array_merge( array('!^\.', '!^_'), $types)
+			);
 
-		# Remove empty values
-		$file_list 	= array_filter($file_list, function($item){
-			return ! empty($item);
-		});
+		} catch (\Exception $e) {
+			throw new SprocketsFileException($e->getMessage(), 1);
+		}
+
+		$file_list 	= \Arr::flatten( $this->dir_scan_iterator($scan, $folder) );
 
 		# Remove duplicates
 		return array_unique($file_list);
+	}
+
+	/**
+	 * @access 	public
+	 * @param 	array 	scan
+	 * @param 	string 	base directory path
+	 * @return 	array  	list of full file paths
+	 */
+	public function dir_scan_iterator($scan, $base_dir)
+	{
+		$list = array();
+
+		foreach ($scan as $key => $value) {
+			if ( ! is_array($value) )
+			{
+				$file = $base_dir . $value;
+				is_file($file)
+				 and $list[] = $file;
+			}
+			else
+			{
+				$list[] = $this->dir_scan_iterator($value, $base_dir . $key);
+			}
+		}
+
+		return $list;
 	}
 
 	/**
@@ -219,10 +239,11 @@ class Sprockets_File
 	 * @return 	string directory path
 	 */
 	public function fix_trailing_slash($input) {
+
 		substr($input, -1) !== "/" and $input = $input . "/";
 		return $input;
 	}
 }
 
-class FileNotFound extends \FuelException {}
-class FileException extends \FuelException {}
+class SprocketsFileNotFoundException extends \FuelException {}
+class SprocketsFileException extends \FuelException {}
