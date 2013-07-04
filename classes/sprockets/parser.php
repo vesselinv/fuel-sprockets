@@ -29,6 +29,7 @@ class Sprockets_Parser extends Sprockets_Cache
 		$base_url,						// The Base URL to be prepended to the bundle path
 		$js_dir,							// Javascripts subdirectory
 		$css_dir,							// Stylesheets subdirectory
+		$img_dir,							// Images subdirectory
 		$force_minify,				// Force Minify if Fuel::$env !== "production"
 		$minify = true,				// To minify or not to minify?
 		$minify_flag = "";		// Flag appended to minified files - .min
@@ -52,6 +53,7 @@ class Sprockets_Parser extends Sprockets_Cache
 		$this->js_dir							= $config['js_dir'];
 		$this->base_url 					= $config['base_url'];
 		$this->css_dir						= $config['css_dir'];
+		$this->img_dir						= $config['img_dir'];
 		$this->force_minify				= $config['force_minify'];
 
 		$this->cache_js_dir 			= $this->cache_dir . $this->js_dir;

@@ -58,6 +58,7 @@ class Sprockets
 			'base_url'							=> \Uri::base(false),
 			'js_dir' 								=> 'js/',
 			'css_dir'								=> 'css/',
+			'img_dir'								=> 'img/',
 			'force_minify'					=> true
 		);
 	}

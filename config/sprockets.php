@@ -56,7 +56,6 @@ return array(
 
 	/**
 	 * base_url - The base URL of your site
-	 * MUST contain a trailing slash (/)
 	 *
 	 * This will be prepended to the file path in the generated include tag
 	 * Example:
@@ -83,6 +82,15 @@ return array(
 	 * `asset_compile` and `cache_dir`
 	 */
 	'css_dir'								=> 'css/',
+
+	/**
+	 * img_dir - Subdirectory containing images
+	 * MUST contain a trailing slash (/)
+	 *
+	 * The subdirectory for images inside `asset_root`
+	 * `asset_compile` and `cache_dir`
+	 */
+	'img_dir'								=> 'img/',
 
 	/**
 	 * force_minify - Always minify bundles
