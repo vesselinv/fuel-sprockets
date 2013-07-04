@@ -49,7 +49,8 @@ class Sprockets_File
 	 * @access 	public
 	 * @param 	string filepath
 	 * @param 	string source
-	 * @return 	void / FileException
+	 * @return 	void
+	 * @throws	FileException
 	 */
 	public function save_file($file_path, $source)
 	{
@@ -59,6 +60,70 @@ class Sprockets_File
 		{
 			throw new FileException("$file_path could not be saved. Do you have write permissions?", 1);
 		}
+	}
+
+	/**
+	 * Copy a file to a new destination
+	 * @access  public
+	 * @param 	string 	origin
+	 * @param 	string 	destination
+	 * @return 	void
+	 * @throws 	FileNotFound|FileException
+	 */
+	public function copy_file($path, $new_path)
+	{
+		$origin 			= trim($path);
+		$destination 	= trim($new_path);
+
+		$replace 			= false;
+		$skip 				= false;
+
+		if ( ! is_file($origin) )
+		{
+			throw new FileNotFound("File $origin does not exist.", 1);
+		}
+		
+		# What if the destination already exist?
+		if ( is_file($destination) )
+		{
+			# Compare the mod times for both origin and destination files
+			$origin_mtime 			= $this->get_filemtime($origin);
+			$destination_mtime 	= $this->get_filemtime($destination);
+
+			# Replace existing destination file
+			if ( $origin_mtime > $destination_mtime )
+			{
+				$replace 	= true;
+			}
+			else
+			{
+				$skip 		= true;
+			}
+		}
+
+		# Destination could be in a subdirectory that doesn't exist yet
+		$destination_basedir = dirname($destination);
+
+		! is_dir($destination_basedir)
+			and mkdir($destination_basedir);
+
+		# Carry out the file operations
+		try {
+
+			if ( $replace == true )
+			{
+				\File::delete($destination);				
+			}
+
+			if ( $skip == false )
+			{
+				\File::copy($origin, $destination);
+			}
+
+		} catch (\Exception $e) {
+			throw new FileException($e->getMessage(), 1);					
+		}
+
 	}
 
 	/**

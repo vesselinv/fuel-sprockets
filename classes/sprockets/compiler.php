@@ -28,7 +28,8 @@ class Sprockets_Compiler
 		$Less, 						// Less Compiler
 		$File;						// File Interface
 
-	protected $file_path, 
+	protected $config, 	// The Sprockets package config
+		$file_path, 			// Current file being processed
 		$file_import_dir, // @import fix for Scss
 		$minify;
 
@@ -38,6 +39,17 @@ class Sprockets_Compiler
 	 */
 	public function __construct()
 	{
+		$this->config = \Config::get("sprockets");
+
+		# When invoked from Cli, DOCROOT doesn't contain public/
+		if ( strpos($this->config['asset_compile_dir'], "public/") === FALSE )
+		{
+			$this->config['asset_compile_dir'] = str_replace(DOCROOT, DOCROOT . "public/", $this->config['asset_compile_dir']);
+		}
+
+		# When run from Cli, $config["base_url"] will be NULL
+		empty($this->config['base_url']) and $this->config['base_url'] = "/";
+
 		# Minify?
 		$this->File = new Sprockets_File();
 	}
@@ -109,6 +121,9 @@ class Sprockets_Compiler
 		# @import file not found fix
 		$this->Compass->addImportPath($this->file_import_dir);
 		
+		# Add image-url function
+		$this->Compass->registerFunction("image-url", array($this, "image_url"));
+
 		new \scss_compass($this->Compass);
 
 		# Compile the source
@@ -130,6 +145,9 @@ class Sprockets_Compiler
 
 		# Add @import base path
 		$this->Less->addImportDir($this->file_import_dir);
+
+		# Add image-url function
+		$this->Less->registerFunction("image-url", array($this, "image_url"));
 
 		$less = $this->Less->compile( $source );
 		return $this->minify_css( $less );
@@ -153,7 +171,17 @@ class Sprockets_Compiler
 	 */
 	protected function compile_coffee($source)
 	{
-		$coffee = \CoffeeScript\Compiler::compile( $source , array('filename' => $this->file_path));
+		try {
+
+			$coffee = \CoffeeScript\Compiler::compile( 
+				$source, 
+				array('filename' => $this->file_path)
+			);
+
+		} catch (\Exception $e) {
+			throw new SprocketsCoffeeCompilerException($e->getMessage());			
+		}
+		
 		return $this->minify_js( $coffee );
 	}
 
@@ -191,4 +219,61 @@ class Sprockets_Compiler
 		}
 
 	}
+
+	/**
+	 * image-url() function for Sass and Less compilers
+	 * Evaluate and copy the references images assets/img/... to public/assets/img/...
+	 * and return the correct url
+	 *
+	 * @access 	public
+	 * @param 	array 	arguments
+	 * @return 	string 	url("$image_url")
+	 * @throws 	SprocketsCssCompilerException
+	 */
+	public function image_url($args)
+	{
+		# Scss passes args as array("type", "identifier", "value" => array("img_url") ) but
+		# nests another same-structure array into "value" if no identifier is provided --
+		# so value must be wrapped in single or double quotes
+		if ( count($args) > 1 )
+		{
+			$params = $args;
+		}
+		# Less compiler passes args as array("&" => array("type", "identifier", "value"))
+		# Will throw Exception if value not in quotes
+		else
+		{
+			$params = $args[0];
+		}
+
+		list($type, $identifier, $value) = $params;
+
+		if ( empty($value[0]) )
+		{
+			throw new SprocketsCssCompilerException("Empty argument for function `image-url()` in " . $this->file_path, 1);			
+		}
+
+		# The image name
+		$image 				= str_replace( array("\"", "'"), "", trim($value[0]) );
+
+		# Map the file to be copied
+		$origin 			= $this->config["asset_root_dir"] . $this->config["img_dir"] . $image;
+		# map the destination
+		$destination 	= $this->config["asset_compile_dir"] . $this->config["img_dir"] . $image;
+
+		$this->File->copy_file($origin, $destination);
+
+		# Should return assets/
+		$asset_dir = str_replace( array(DOCROOT . "public/", DOCROOT), "", $this->config["asset_compile_dir"]);
+
+		$image_url = $this->config["base_url"] . $asset_dir . $this->config["img_dir"] . $image;
+		
+		return "url(\"$image_url\")";
+	}
 }
+
+class SprocketsCssCompilerException extends \FuelException {}
+class SprocketsJsCompilerException extends \FuelException {}
+class SprocketsCoffeeCompilerException extends \FuelException {}
+class SprocketsScssCompilerException extends \FuelException {}
+class SprocketsLessCompilerException extends \FuelException {}
