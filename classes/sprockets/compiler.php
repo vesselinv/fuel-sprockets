@@ -112,6 +112,7 @@ class Sprockets_Compiler
 	 * @access 	public
 	 * @param 	string 	source
 	 * @return 	string 	compiled source
+	 * @throws 	SprocketsScssCompilerException
 	 */
 	protected function compile_scss($source) {
 
@@ -126,8 +127,16 @@ class Sprockets_Compiler
 
 		new \scss_compass($this->Compass);
 
-		# Compile the source
-		$sass = $this->Compass->compile($source);
+		$sass = "";
+
+		try {
+			
+			# Compile the source
+			$sass = $this->Compass->compile($source);
+
+		} catch (\Exception $e) {
+			throw new SprocketsScssCompilerException($e->getMessage(), 1);
+		}
 
 		return $this->minify_css($sass);
 	}
@@ -137,6 +146,7 @@ class Sprockets_Compiler
 	 * @access 	public
 	 * @param 	string 	source
 	 * @return 	string 	compiled source
+	 * @throws 	SprocketsLessCompilerException
 	 */
 	protected function compile_less($source) {
 
@@ -149,7 +159,17 @@ class Sprockets_Compiler
 		# Add image-url function
 		$this->Less->registerFunction("image-url", array($this, "image_url"));
 
-		$less = $this->Less->compile( $source );
+		$less = "";
+
+		try {
+
+			# Compile the source
+			$less = $this->Less->compile( $source );
+
+		} catch (\Exception $e) {
+			throw new SprocketsLessCompilerException($e->getMessage(), 1);
+		}
+		
 		return $this->minify_css( $less );
 	}
 
@@ -168,6 +188,7 @@ class Sprockets_Compiler
 	 * @access 	public
 	 * @param 	string 	source
 	 * @return 	string 	compiled source
+	 * @throws 	SprocketsCoffeeCompilerException
 	 */
 	protected function compile_coffee($source)
 	{
