@@ -35,6 +35,7 @@ To use Fuel Sprockets, you will need the following asset structure:
     |    |-- assets/
     |    |    |-- js/
     |    |    |-- css/
+    |    |    |-- img/
     |    |-- cache/
     |    |    |-- sprockets/
     |    |    |    |-- js/
@@ -43,6 +44,7 @@ To use Fuel Sprockets, you will need the following asset structure:
     |-- assets/
     |    |-- js/
     |    |-- css/
+    |    |-- img/
 
 You should be placing your asset files inside `app/assets/*` and that's where Fuel Sprockets will
 expect to find them. This ensures separation of development files from production bundles. It
@@ -64,6 +66,7 @@ by copying `config/sprockets.php` into your `fuel/app/config` directory
       'cache_dir'               => APPPATH . 'cache/sprockets/',
       'js_dir'                  => 'js/',
       'css_dir'                 => 'css/',
+      'img_dir'                 => 'img/',
       'base_url'                => \Uri::base(false),
       'force_minify'            => false
     );
@@ -150,6 +153,25 @@ inside your CSS Root Dir (`fuel/app/assets/css/` by default) along with vanilla 
 say why mix up Js with Coffee and Css with Sass and Less and the answer simply is because 
 in the end they all get compiled to plain Js and Css respectively. At a future point, if requested,
 I may add support for separating them into different folders.
+
+# `image-url()` #
+
+The `image-url()` function is vailable for the Less and Scss compilers, not for vanilla Css.
+
+To make proper use of it, the referenced image must reside in `fuel/app/assets/img/` or a path that is equivalent to your customly defined `asset_root_dir` + `img_dir`. What the function will do is copy the image from `fuel/app/assets/img/` into `public/assets/img/`. Use as such:
+
+    // Only inside Less and Scss files:
+
+    body {
+      background: image-url("my-fabulous-background.jpg");
+    }
+
+    // Will produce:
+    body {
+      background: url("http://localhost:8000/assets/img/my-fabulous-background.jpg");
+    }
+
+*Note:* The argument passed to `image-url()` must always be wrapped in single or double quotes.
 
 # Minification #
 
