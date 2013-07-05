@@ -1,0 +1,6 @@
+/*
+*= require vendor/bootstrap.css
+*= require_directory vendor/
+*= require_tree vendor/
+*/
+body { background: #fff;}

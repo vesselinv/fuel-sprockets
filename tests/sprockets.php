@@ -77,6 +77,10 @@ class Test_Sprockets extends \PHPUnit_Framework_TestCase
       $js[] = $sprockets->js('test-require_tree-js.js');
       $js[] = $sprockets->js('test-require_tree-coffee.coffee');
 
+      # all directives for Sprockets::js
+      $js[] = $sprockets->js('test-all-directives-js.js');
+      $js[] = $sprockets->js('test-all-directives-coffee.coffee');
+
       # require directive for Sprockets::css
       $css[] = $sprockets->css('test-require-css.css');
       $css[] = $sprockets->css('test-require-scss.scss');
@@ -91,6 +95,11 @@ class Test_Sprockets extends \PHPUnit_Framework_TestCase
       $css[] = $sprockets->css('test-require_tree-css.css');
       $css[] = $sprockets->css('test-require_tree-scss.scss');
       $css[] = $sprockets->css('test-require_tree-less.less');
+
+      # all directives for Sprockets::css
+      $css[] = $sprockets->css('test-all-directives-css.css');
+      $css[] = $sprockets->css('test-all-directives-scss.scss');
+      $css[] = $sprockets->css('test-all-directives-less.less');
 
       foreach ($js as $js) {
 
