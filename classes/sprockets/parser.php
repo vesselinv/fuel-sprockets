@@ -32,7 +32,8 @@ class Sprockets_Parser extends Sprockets_Cache
 		$img_dir,							// Images subdirectory
 		$force_minify,				// Force Minify if Fuel::$env !== "production"
 		$minify = true,				// To minify or not to minify?
-		$minify_flag = "";		// Flag appended to minified files - .min
+		$minify_flag = "",		// Flag appended to minified files - .min
+		$requested_bundle;		// The requested bundle file
 
 	protected $File, $Compiler;
 
@@ -82,19 +83,20 @@ class Sprockets_Parser extends Sprockets_Cache
 	 */
 	public function parse($file, $asset_dir) {
 
-		$file_path 	= $this->asset_root_dir . $asset_dir . $file;
+		$this->requested_bundle = $this->asset_root_dir . $asset_dir . $file;
 
-		$source 		= $this->File->read_source($file_path);
+		$source 		= $this->File->read_source($this->requested_bundle);
 		$subfiles 	= $this->parse_directives($source, $asset_dir);
 
 		# Clean up and flatten
-		$subfiles 	= \Arr::flatten($subfiles, '_');
+		$subfiles 	= \Arr::flatten($subfiles);
 		$subfiles		= array_filter($subfiles, function($item){
 			return ! empty($item);
 		});
-		$file_list 	= array_merge(array_unique($subfiles), array($file_path));
 
-		return $this->process_files($file_list, $file);
+		$file_list 	= array_merge(array_unique($subfiles), array($this->requested_bundle));
+
+		return $this->process_files(array_unique($file_list), $file);
 
 	}
 
@@ -159,7 +161,7 @@ class Sprockets_Parser extends Sprockets_Cache
 			
 		}
 
-		return $filepaths_to_include;
+		return \Arr::flatten( $filepaths_to_include );
 
 	}
 
@@ -182,6 +184,10 @@ class Sprockets_Parser extends Sprockets_Cache
 	 * @return 	string 	processed_source
 	 */
 	protected function d_require_directory($dir_path, $asset_dir, $recursive = false) {
+		
+		# Trim the dot from the dir path (`#= require_tree .`) to avoid it being added in subdirs
+		$dir_path = rtrim($dir_path, ".");
+
 		# Get initial scan of the directory
 		$files = $this->File->get_files_in_dir($dir_path, $recursive);
 
@@ -191,8 +197,13 @@ class Sprockets_Parser extends Sprockets_Cache
 		$subfiles = array();
 
 		foreach ($files as $key => $file) {
-			$source = $this->File->read_source($file);
-			$subfiles[] = $this->parse_directives($source, $asset_dir . $dir_diff);
+			# Prevent infinite loops - when `#= require_tree .` is used, the requested bundle will be
+			# included in the dir scan and must be ignored here
+			if ( $file != $this->requested_bundle )
+			{
+				$source = $this->File->read_source($file);
+				$subfiles[] = $this->parse_directives($source, $asset_dir . $dir_diff);
+			}
 		}
 
 		return array_merge($files, $subfiles);

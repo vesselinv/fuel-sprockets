@@ -229,7 +229,7 @@ class Sprockets_File
 			}
 		}
 
-		return $list;
+		return \Arr::flatten( $list );
 	}
 
 	/**
@@ -240,7 +240,9 @@ class Sprockets_File
 	 */
 	public function fix_trailing_slash($input) {
 
+		$input = rtrim($input, ".");
 		substr($input, -1) !== "/" and $input = $input . "/";
+
 		return $input;
 	}
 }
