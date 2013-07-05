@@ -154,9 +154,9 @@ say why mix up Js with Coffee and Css with Sass and Less and the answer simply i
 in the end they all get compiled to plain Js and Css respectively. At a future point, if requested,
 I may add support for separating them into different folders.
 
-# `image-url()` #
+## `image-url()` ##
 
-The `image-url()` function is vailable for the Less and Scss compilers, not for vanilla Css.
+The `image-url()` function is available for the Less and Scss compilers, not for vanilla Css.
 
 To make proper use of it, the referenced image must reside in `fuel/app/assets/img/` or a path that is equivalent to your customly defined `asset_root_dir` + `img_dir`. What the function will do is copy the image from `fuel/app/assets/img/` into `public/assets/img/`. Use as such:
 
@@ -167,6 +167,7 @@ To make proper use of it, the referenced image must reside in `fuel/app/assets/i
     }
 
     // Will produce:
+    
     body {
       background: url("http://localhost:8000/assets/img/my-fabulous-background.jpg");
     }
