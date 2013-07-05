@@ -192,11 +192,16 @@ class Sprockets_Compiler
 	 */
 	protected function compile_coffee($source)
 	{
+		$options = array_merge( 
+			array('filename' => $this->file_path),
+			$this->config["coffeescript"]
+		);
+
 		try {
 
 			$coffee = \CoffeeScript\Compiler::compile( 
 				$source, 
-				array('filename' => $this->file_path)
+				$options
 			);
 
 		} catch (\Exception $e) {
