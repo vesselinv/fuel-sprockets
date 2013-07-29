@@ -136,13 +136,13 @@ files from CDNs.
 
 `require_directory` *path* requires all source files of the same
 format - Js/Coffee or Css/Scss/Less - in the directory specified by *path*.
-Files are required in alphabetical order.
+Files are required in alphabetical order. Partials (filenames starting with an underscore `_`) and dotfiles `.` are ignored.
 
 ### The `require_tree` Directive ###
 
 `require_tree` *path* works like `require_directory`, but operates
 recursively to require all files in all subdirectories of the
-directory specified by *path*.
+directory specified by *path*. When using this directive, subfolders are included prior to any files that are direct children of *path* .
 
 # Supported Compilers #
 
