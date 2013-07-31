@@ -72,7 +72,7 @@ class Sprockets_Cache
 			{
 				$mod_date = $this->File->get_filemtime($file); # Local file
 			}
-			else 
+			else
 			{
 				$mod_date = $this->File->get_remotemtime($file); # Remote file
 			}
@@ -86,10 +86,10 @@ class Sprockets_Cache
 
 		$this->sprockets_file_timestamp = md5(implode('', $mod_dates));
 
-		$this->sprockets_filename 			= 
+		$this->sprockets_filename 			=
 			$filename . "_" . $this->sprockets_file_timestamp . $this->minify_flag . "." . $ext;
 
-		$this->sprockets_file_full_path = 
+		$this->sprockets_file_full_path =
 			$this->asset_compile_dir . $this->file_asset_dir . $this->sprockets_filename;
 
 		if ( file_exists($this->sprockets_file_full_path) ) {
@@ -123,11 +123,11 @@ class Sprockets_Cache
 				$relative_path 		= $file_path_parts[1];
 
 				$filename = substr($relative_path, 0, strrpos($relative_path, "."));
-				$filename = str_replace("/", "-", $filename);
+				$filename = str_replace(array("/","\\"), "-", $filename);
 
 				$ext = substr($relative_path, strrpos($relative_path, '.') + 1);
 
-				$expected_cached_file = 
+				$expected_cached_file =
 					$this->file_cache_dir . $filename . "_" . $mod_date . $this->minify_flag . "." . $ext;
 			}
 			else
@@ -140,10 +140,12 @@ class Sprockets_Cache
 
 			# Pull up the file or recompile it if does not exist
 			if ( file_exists($expected_cached_file) ) {
-				
+
 				$compiled_source .= $this->File->read_source($expected_cached_file);
 
-			} else {
+			}
+			else
+			{
 
 				$source = $this->Compiler->compile($file["path"], $this->minify);
 				$save = $this->File->save_file($expected_cached_file, $source);
@@ -156,7 +158,7 @@ class Sprockets_Cache
 		}
 
 		$this->File->save_file($this->sprockets_file_full_path, $compiled_source);
-		
+
 		# Call GC
 		$this->remove_stale_files(str_replace($this->sprockets_file_timestamp, "*", $this->sprockets_file_full_path), $this->sprockets_file_full_path);
 
@@ -172,9 +174,9 @@ class Sprockets_Cache
 	protected function generate_include_tag() {
 		$asset_dir = str_replace(DOCROOT, "", $this->asset_compile_dir);
 
-		$file_path = $this->base_url . 
-			$asset_dir . 
-			$this->file_asset_dir . 
+		$file_path = $this->base_url .
+			$asset_dir .
+			$this->file_asset_dir .
 			$this->sprockets_filename;
 
 		return str_replace("{FILE}", $file_path, $this->include_tag);
