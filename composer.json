@@ -1,5 +1,5 @@
 {
-    "name": "vesselinv/fuel-sprockets",
+    "name": "soundintheory/fuel-sprockets",
     "description": "Asset management and asset bundling package for FuelPHP",
     "type": "fuel-package",
     "license": "MIT",
