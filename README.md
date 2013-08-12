@@ -84,6 +84,11 @@ Inside your views, simply invoke your bundle file just as you would with `Asset`
       <?php echo Sprockets::js('application.js'); ?>
       <?php echo Sprockets::css('application.scss'); ?>
 
+... or if you are using Twig for your views:
+
+      {{ sprockets_js('application.js') }}
+      {{ sprockets_css('application.scss') }}
+
 The above will produce:
 
       <script src="http://localhost:8000/assets/js/application_0004abf4a2950d49d237ecd9112fc233.js" type="text/javascript"></script>
