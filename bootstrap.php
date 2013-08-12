@@ -12,9 +12,6 @@
  * @link       http://vesselinv.com
  */
 
-// Composer Autoloader
-require __DIR__ .'/vendor/autoload.php';
-
 Autoloader::add_core_namespace('Sprockets');
 
 Autoloader::add_classes(array(
@@ -24,6 +21,7 @@ Autoloader::add_classes(array(
 	'Sprockets\\Sprockets_Parser'    		=> __DIR__.'/classes/sprockets/parser.php',
 	'Sprockets\\Sprockets_Cache'    		=> __DIR__.'/classes/sprockets/cache.php',
 	'Sprockets\\Sprockets_Compiler'    	=> __DIR__.'/classes/sprockets/compiler.php',
+	'Sprockets\\Sprockets_Twig_Extension'	=>	__DIR__.'/classes/sprockets/twig/extension.php',
 ));
 
 /* End of file bootstrap.php */

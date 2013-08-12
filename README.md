@@ -6,17 +6,19 @@ of use of the build-in Asset class, you can now manage your javascript
 and css files in your application with ease. Fuel Sprockets also comes 
 with php ports of Sass/Compass, Less and CoffeeScript compilers.
 
+This package is best installed via Composer, and is designed for use with FuelPHP
+version 1.6 and upwards.
+
 # Installation #
 
 Installing Fuel Sprockets is as easy as:
 
-    $ git clone https://github.com/vesselinv/fuel-sprockets.git fuel/packages/sprockets
-
-You can also add it as a submodule:
-
-    $ git submodule add https://github.com/vesselinv/fuel-sprockets.git fuel/packages/sprockets
-
-Or simply unzip into `fuel/packages/sprockets`
+1. Add
+```
+"vesselinv/fuel-sprockets": "1.*"
+``` 
+to the `require` list in your project's `composer.json`
+2. Install with `composer install`
 
 Don't forget to add it to the Auto Loaded packages block in `config.php`
 
@@ -81,6 +83,11 @@ Inside your views, simply invoke your bundle file just as you would with `Asset`
 
       <?php echo Sprockets::js('application.js'); ?>
       <?php echo Sprockets::css('application.scss'); ?>
+
+... or if you are using Twig for your views:
+
+      {{ sprockets_js('application.js') }}
+      {{ sprockets_css('application.scss') }}
 
 The above will produce:
 
