@@ -4,7 +4,7 @@
  * Part of Fuel Sprockets
  *
  * @package    Fuel Sprockets
- * @version    1.0
+ * @version    1.3
  * @author     Veselin Vasilev @vesselinv
  * @license    MIT License
  * @copyright  2013 Veselin Vasilev
@@ -19,7 +19,7 @@ namespace Sprockets;
  * @package     Fuel Sprockets
  */
 
-class Sprockets_File 
+class Sprockets_File
 {
 	// What file types should be attepted to be parsed
 	protected	$accepted_file_types = array(
@@ -82,7 +82,7 @@ class Sprockets_File
 		{
 			throw new SprocketsFileNotFoundException("File $origin does not exist.", 1);
 		}
-		
+
 		# What if the destination already exist?
 		if ( is_file($destination) )
 		{
@@ -166,10 +166,10 @@ class Sprockets_File
 		    return strtotime($h['Last-Modified']);
 		} else {
 			throw new SprocketsFileException("Could not get Last Modified Date for $url", 1);
-			
+
 		}
 	}
-	
+
 	/**
 	 * @access 	public
 	 * @param 	string directory path
@@ -178,7 +178,7 @@ class Sprockets_File
 	public function get_files_in_dir($dir_path, $recursive = false) {
 
 		# Add traling slash
-		$folder = $this->fix_trailing_slash($dir_path); 
+		$folder = $this->fix_trailing_slash($dir_path);
 
 		$types = array();
 		foreach ($this->accepted_file_types as $key => $value) {
@@ -187,7 +187,7 @@ class Sprockets_File
 
 		$scan = array();
 		try {
-			
+
 			# Scan entire directory
 			$scan = \File::read_dir(
 				$folder,

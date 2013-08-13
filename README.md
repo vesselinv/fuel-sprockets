@@ -3,7 +3,7 @@
 Fuel Sprockets is an asset management and asset bundling package
 for FuelPHP. Following the idea behind the Asset Pipeline and the ease
 of use of the build-in Asset class, you can now manage your javascript
-and css files in your application with ease. Fuel Sprockets also comes 
+and css files in your application with ease. Fuel Sprockets also comes
 with php ports of Sass/Compass, Less and CoffeeScript compilers.
 
 This package is best installed via Composer, and is designed for use with FuelPHP
@@ -16,7 +16,7 @@ Installing Fuel Sprockets is as easy as:
 1. Add
 ```
 "vesselinv/fuel-sprockets": "1.*"
-``` 
+```
 to the `require` list in your project's `composer.json`
 2. Install with `composer install`
 
@@ -58,7 +58,7 @@ The package will automatically create its cache folder. You will however need to
 # Convention over Configuration #
 
 Fuel Sprockets, by default, is configured to use the afore-mentioned asset
-structure and make our lives a little bit easier. You can however, overwrite it 
+structure and make our lives a little bit easier. You can however, overwrite it
 by copying `config/sprockets.php` into your `fuel/app/config` directory
 
     <?php
@@ -97,7 +97,7 @@ The above will produce:
 ## The Directive Parser ##
 
 Fuel Sprockets runs the *directive parser* on each CSS and JavaScript
-source file. The directive parser scans for comment lines beginning with 
+source file. The directive parser scans for comment lines beginning with
 `=` in comment blocks anywhere in the file. A sample `application.js`:
 
     //= require jquery-1.9.1.js
@@ -160,8 +160,8 @@ needed either - all is handled through php.
 
 *Note:* The package will expect to find CoffeeScripts inside your JS Asset Root
 (`fuel/app/assets/js/` by default) along with vanilla Js file, and Scss and Less stylesheeets
-inside your CSS Root Dir (`fuel/app/assets/css/` by default) along with vanilla Css. Some may 
-say why mix up Js with Coffee and Css with Sass and Less and the answer simply is because 
+inside your CSS Root Dir (`fuel/app/assets/css/` by default) along with vanilla Css. Some may
+say why mix up Js with Coffee and Css with Sass and Less and the answer simply is because
 in the end they all get compiled to plain Js and Css respectively. At a future point, if requested,
 I may add support for separating them into different folders.
 
@@ -178,7 +178,7 @@ To make proper use of it, the referenced image must reside in `fuel/app/assets/i
     }
 
     // Will produce:
-    
+
     body {
       background: url("http://localhost:8000/assets/img/my-fabulous-background.jpg");
     }
@@ -187,15 +187,15 @@ To make proper use of it, the referenced image must reside in `fuel/app/assets/i
 
 # Minification #
 
-All Sprockets files will be automatically minified if your `Fuel::$env` is set to 
+All Sprockets files will be automatically minified if your `Fuel::$env` is set to
 `production`. You can, however, force minification in different environments by
 setting `force_minify` to `true` in the Sprockets config file.
 
 # Smart Caching #
 
-Fuel Sprockets is smart about caching. The final compiled source for each file that is 
+Fuel Sprockets is smart about caching. The final compiled source for each file that is
 included in your bundles in cached inside `fuel/app/cache/sprockets`. The Last Modified
-timestamp and minification flag (`.min`) are appended to the filename so that we can 
+timestamp and minification flag (`.min`) are appended to the filename so that we can
 compare when your asset file has changed and whether the generated file is up-to-date.
 
 # Running Tests #
@@ -220,24 +220,23 @@ task in your deploy.rb
     namespace :deploy do
         desc "Precompile Assets"
         task :sprockets do
-            run [ "cd #{latest_release}", 
+            run [ "cd #{latest_release}",
                 "php oil refine sprockets:js application.coffee",
                 "php oil refine sprockets:css application.scss"
               ].join("; ")
         end
     end
-    
+
     after "deploy:migrate", "deploy:sprockets"
 
 # Roadmap #
 
 The following improvements are on my list:
 
-* Support for image processing when referenced in Scss, Less and Css assets.
+~~* Support for image processing when referenced in Scss, Less and Css assets.~~
 * Support for fonts referenced in css assets - copy font files from `asset_root_dir` to `compile_dir`
-* Config option for image quality
-* Additional Config options for the CoffeeScript, Scss/Compass and Less compilers
-* Make package installable through Composer
+~~* Additional Config options for the CoffeeScript, Scss/Compass and Less compilers~~
+~~* Make package installable through Composer~~
 
 # License #
 

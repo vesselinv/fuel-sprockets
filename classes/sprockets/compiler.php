@@ -4,7 +4,7 @@
  * Part of Fuel Sprockets
  *
  * @package    Fuel Sprockets
- * @version    1.0
+ * @version    1.3
  * @author     Veselin Vasilev @vesselinv
  * @license    MIT License
  * @copyright  2013 Veselin Vasilev
@@ -21,7 +21,7 @@ namespace Sprockets;
 
 class Sprockets_Compiler
 {
-	protected $CssMin,	// CSSMin 
+	protected $CssMin,	// CSSMin
 		$JsMin, 					// JsMin
 		$Coffee, 					// Coffee Compiler
 		$Compass, 				// Compass/Sass
@@ -90,7 +90,7 @@ class Sprockets_Compiler
 			case 'less':
 				return $this->compile_less( $source );
 			break;
-			
+
 			case 'css':
 				return $this->compile_css( $source );
 			break;
@@ -121,7 +121,7 @@ class Sprockets_Compiler
 
 		# @import file not found fix
 		$this->Compass->addImportPath($this->file_import_dir);
-		
+
 		# Add image-url function
 		$this->Compass->registerFunction("image-url", array($this, "image_url"));
 
@@ -130,7 +130,7 @@ class Sprockets_Compiler
 		$sass = "";
 
 		try {
-			
+
 			# Compile the source
 			$sass = $this->Compass->compile($source);
 
@@ -169,7 +169,7 @@ class Sprockets_Compiler
 		} catch (\Exception $e) {
 			throw new SprocketsLessCompilerException($e->getMessage(), 1);
 		}
-		
+
 		return $this->minify_css( $less );
 	}
 
@@ -192,22 +192,22 @@ class Sprockets_Compiler
 	 */
 	protected function compile_coffee($source)
 	{
-		$options = array_merge( 
+		$options = array_merge(
 			array('filename' => $this->file_path),
 			$this->config["coffeescript"]
 		);
 
 		try {
 
-			$coffee = \CoffeeScript\Compiler::compile( 
-				$source, 
+			$coffee = \CoffeeScript\Compiler::compile(
+				$source,
 				$options
 			);
 
 		} catch (\Exception $e) {
-			throw new SprocketsCoffeeCompilerException($e->getMessage());			
+			throw new SprocketsCoffeeCompilerException($e->getMessage());
 		}
-		
+
 		return $this->minify_js( $coffee );
 	}
 
@@ -276,7 +276,7 @@ class Sprockets_Compiler
 
 		if ( empty($value[0]) )
 		{
-			throw new SprocketsCssCompilerException("Empty argument for function `image-url()` in " . $this->file_path, 1);			
+			throw new SprocketsCssCompilerException("Empty argument for function `image-url()` in " . $this->file_path, 1);
 		}
 
 		# The image name
@@ -293,7 +293,7 @@ class Sprockets_Compiler
 		$asset_dir = str_replace( array(DOCROOT . "public/", DOCROOT), "", $this->config["asset_compile_dir"]);
 
 		$image_url = $this->config["base_url"] . $asset_dir . $this->config["img_dir"] . $image;
-		
+
 		return "url(\"$image_url\")";
 	}
 }

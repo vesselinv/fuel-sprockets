@@ -5,12 +5,12 @@
  *
  * A smarter asset manager for FuelPHP closely following Sprockets/Asset Pipeline.
  * Provide directives inside your Js, Css, Less, Sass/Compass, CoffeeScript files
- * and Fuel-Sprockets will combine, compile and minify all, in order of importance, 
+ * and Fuel-Sprockets will combine, compile and minify all, in order of importance,
  * and generate an include tag to the compiled sprockets file. Uses smart caching in
  * order to avoid unnecessary recompilation
  *
  * @package    Fuel Sprockets
- * @version    1.0
+ * @version    1.3
  * @author     Veselin Vasilev @vesselinv
  * @license    MIT License
  * @copyright  2013 Veselin Vasilev
@@ -109,7 +109,7 @@ return array(
 	'coffeescript' => array(
 			/**
 			 * Set to true to disable IIFE and prevent the file contents from
-			 * being wrapped in a 
+			 * being wrapped in a
 			 * (function(){
 			 * ...
 			 * }).call(this);

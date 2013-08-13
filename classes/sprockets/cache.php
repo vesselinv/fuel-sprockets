@@ -4,7 +4,7 @@
  * Part of Fuel Sprockets
  *
  * @package    Fuel Sprockets
- * @version    1.0
+ * @version    1.3
  * @author     Veselin Vasilev @vesselinv
  * @license    MIT License
  * @copyright  2013 Veselin Vasilev

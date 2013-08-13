@@ -4,7 +4,7 @@
  * Part of Fuel Sprockets
  *
  * @package    Fuel Sprockets
- * @version    1.0
+ * @version    1.3
  * @author     Veselin Vasilev @vesselinv
  * @license    MIT License
  * @copyright  2013 Veselin Vasilev
@@ -147,7 +147,7 @@ class Sprockets_Parser extends Sprockets_Cache
 						# The file is remote
 						$filepaths_to_include[] = $this->d_require($parameter);
 					}
-					
+
 				break;
 
 				case 'require_directory':
@@ -158,7 +158,7 @@ class Sprockets_Parser extends Sprockets_Cache
 					$filepaths_to_include[] = $this->d_require_directory($directory . $parameter, $asset_dir, true);
 				break;
 			}
-			
+
 		}
 
 		return \Arr::flatten( $filepaths_to_include );
@@ -184,7 +184,7 @@ class Sprockets_Parser extends Sprockets_Cache
 	 * @return 	string 	processed_source
 	 */
 	protected function d_require_directory($dir_path, $asset_dir, $recursive = false) {
-		
+
 		# Trim the dot from the dir path (`#= require_tree .`) to avoid it being added in subdirs
 		$dir_path = rtrim($dir_path, ".");
 
