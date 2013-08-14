@@ -233,10 +233,10 @@ task in your deploy.rb
 
 The following improvements are on my list:
 
-~~* Support for image processing when referenced in Scss, Less and Css assets.~~
+* ~~Support for image processing when referenced in Scss, Less and Css assets.~~
 * Support for fonts referenced in css assets - copy font files from `asset_root_dir` to `compile_dir`
-~~* Additional Config options for the CoffeeScript, Scss/Compass and Less compilers~~
-~~* Make package installable through Composer~~
+* ~~Additional Config options for the CoffeeScript, Scss/Compass and Less compilers~~
+* ~~Make package installable through Composer~~
 
 # License #
 
