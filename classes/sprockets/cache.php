@@ -179,7 +179,7 @@ class Sprockets_Cache
 			$this->file_asset_dir .
 			$this->sprockets_filename;
 
-		return str_replace("{FILE}", $file_path, $this->include_tag);
+		return ( $this->no_tag ? $file_path : str_replace("{FILE}", $file_path, $this->include_tag) );
 	}
 
 	/**

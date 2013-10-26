@@ -5,7 +5,7 @@
  *
  * A smarter asset manager for FuelPHP closely following Sprockets/Asset Pipeline.
  * Provide directives inside your Js, Css, Less, Sass/Compass, CoffeeScript files
- * and Fuel-Sprockets will combine, compile and minify all, in order of importance, 
+ * and Fuel-Sprockets will combine, compile and minify all, in order of importance,
  * and generate an include tag to the compiled sprockets file. Uses smart caching in
  * order to avoid unnecessary recompilation
  *
@@ -27,7 +27,7 @@ namespace Fuel\Tasks;
  * @author		Veselin Vasilev
  */
 
-class Sprockets 
+class Sprockets
 {
 	protected static $sprockets;
 
@@ -70,6 +70,7 @@ class Sprockets
 	{
 		$output = <<<EOL
 Usage:
+	oil r sprockets:compile app.coffee app.scss
   oil r sprockets:js application.js/coffee
   oil r sprockets:css application.css/scss/less
 
@@ -80,8 +81,53 @@ EOL;
 	}
 
 	/**
+	 * Precompile Assets
+	 * Usage: $ php oil r sprockets:compile app.js app.css
+	 * @access 	public
+	 * @param 	string filepaths
+	 * @return 	string
+	 */
+	public static function compile($file = null)
+	{
+		$files = func_get_args();
+
+		if ( count($files) < 1 )
+		{
+			return "No filepath(s) specified.";
+		}
+
+		$result = array();
+
+		foreach ($files as $i => $file) {
+			$ext = strtolower( substr($file, strrpos($file, '.') + 1) );
+
+			switch ($ext) {
+				case 'js':
+				case 'coffee':
+					$result[] = static::$sprockets->js($file, true);
+					break;
+
+				case 'css':
+				case 'scss':
+				case 'less':
+					$result[] = static::$sprockets->css($file, true);
+					break;
+			}
+		}
+
+		$generated = array_map(function($item){
+			return basename(DOCROOT . $item);
+		}, $result);
+
+		\Cli::write("\nThe following bundles were generated:\n\n" . implode("\n", $result) . "\n");
+	}
+
+	/**
 	 * Invoke Js Bundle through CLI
 	 * Usage: $ php oil r sprockets:js application.js/coffee
+	 *
+	 * TO BE DEPRECATED
+	 *
 	 * @access 	public
 	 * @param 	string filepath
 	 * @return 	string
@@ -90,16 +136,9 @@ EOL;
 	{
 		if ( ! empty($file) )
 		{
-			$result = static::$sprockets->js($file);
+			$result = static::$sprockets->js($file, true);
 
-			$doc = new \DOMDocument();
-			$doc->loadHTML($result);
-			$node = $doc->getElementsByTagName( "script" ); 
-			foreach ($node as $node) {
-				$bundle_file = $node->getAttribute("src");
-			}
-
-			\Cli::write( "Bundle file " . basename(DOCROOT . $bundle_file) . " was created for " . $file );
+			\Cli::write( "Bundle file " . basename(DOCROOT . $result) . " was created for " . $file );
 			exit();
 
 		} else {
@@ -110,6 +149,9 @@ EOL;
 	/**
 	 * Invoke Css Bundle through CLI
 	 * Usage: $ php oil r sprockets:css application.css/scss/less
+	 *
+	 * TO BE DEPRECATED
+	 *
 	 * @access 	public
 	 * @param 	string filepath
 	 * @return 	string
@@ -118,16 +160,9 @@ EOL;
 	{
 		if ( ! empty($file) )
 		{
-			$result = static::$sprockets->css($file);
+			$result = static::$sprockets->css($file, true);
 
-			$doc = new \DOMDocument();
-			$doc->loadHTML($result);
-			$node = $doc->getElementsByTagName( "link" ); 
-			foreach ($node as $node) {
-				$bundle_file = $node->getAttribute("href");
-			}
-
-			\Cli::write( "Bundle file " . basename(DOCROOT . $bundle_file) . " was created for " . $file );
+			\Cli::write( "Bundle file " . basename(DOCROOT . $result) . " was created for " . $file );
 			exit();
 
 		} else {

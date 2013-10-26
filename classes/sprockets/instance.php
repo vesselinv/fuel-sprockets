@@ -60,8 +60,8 @@ class Sprockets_Instance
 	 * @param   string filename
 	 * @return  string sprockets_include_js_tag
 	 */
-	public function js($file) {
-		return $this->Parser->parse($file, $this->js_dir);
+	public function js($file, $no_tag = false) {
+		return $this->Parser->parse($file, $this->js_dir, $no_tag);
 	}
 
 	/**
@@ -70,8 +70,8 @@ class Sprockets_Instance
 	 * @param   string filename
 	 * @return  string sprockets_include_css_tag
 	 */
-	public function css($file) {
-		return $this->Parser->parse($file, $this->css_dir);
+	public function css($file, $no_tag = false) {
+		return $this->Parser->parse($file, $this->css_dir, $no_tag);
 	}
 }
 

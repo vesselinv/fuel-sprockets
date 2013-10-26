@@ -211,8 +211,7 @@ And watch the cache and compile folders inside tests/ get filled with bundles.
 
 A Fuel Task is available through `oil` to precompile and minify your bundles.
 
-    $ oil r sprockets:js application.js
-    $ oil r sprockets:css application.scss
+    $ oil r sprockets:compile application.js application.css
 
 These tasks come in very handy when deploying with Capistrano. Simply define a
 task in your deploy.rb
@@ -221,8 +220,7 @@ task in your deploy.rb
         desc "Precompile Assets"
         task :sprockets do
             run [ "cd #{latest_release}",
-                "php oil refine sprockets:js application.coffee",
-                "php oil refine sprockets:css application.scss"
+                "php oil refine sprockets:compile application.js application.css"
               ].join("; ")
         end
     end

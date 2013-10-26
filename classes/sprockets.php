@@ -5,7 +5,7 @@
  *
  * A smarter asset manager for FuelPHP closely following Sprockets/Asset Pipeline.
  * Provide directives inside your Js, Css, Less, Sass/Compass, CoffeeScript files
- * and Fuel-Sprockets will combine, compile and minify all, in order of importance, 
+ * and Fuel-Sprockets will combine, compile and minify all, in order of importance,
  * and generate an include tag to the compiled sprockets file. Uses smart caching in
  * order to avoid unnecessary recompilation
  *
@@ -120,10 +120,10 @@ class Sprockets
 	 * @param   string filename
 	 * @return  string sprockets_include_js_tag
 	 */
-	public static function js($file) {
+	public static function js($file, $no_tag = false) {
 
-		return static::instance()->js($file);
-		
+		return static::instance()->js($file, $no_tag);
+
 	}
 
 	/**
@@ -132,9 +132,9 @@ class Sprockets
 	 * @param   string filename
 	 * @return  string sprockets_include_css_tag
 	 */
-	public static function css($file) {
+	public static function css($file, $no_tag = false) {
 
-		return static::instance()->css($file);
+		return static::instance()->css($file, $no_tag);
 
 	}
 }

@@ -33,12 +33,13 @@ class Sprockets_Parser extends Sprockets_Cache
 		$force_minify,				// Force Minify if Fuel::$env !== "production"
 		$minify = true,				// To minify or not to minify?
 		$minify_flag = "",		// Flag appended to minified files - .min
+		$no_tag,							// Whether to only return file name
 		$requested_bundle;		// The requested bundle file
 
 	protected $File, $Compiler;
 
 	protected $JS_TAG 	= '<script src="{FILE}" type="text/javascript"></script>';
-	protected $CSS_TAG  = '<link rel="stylesheet" href="{FILE}">';
+	protected $CSS_TAG  = '<link href="{FILE}" rel="stylesheet">';
 
 	/**
 	 * Parse the config and initialize object instance and referenced classes
@@ -81,8 +82,9 @@ class Sprockets_Parser extends Sprockets_Cache
 	 * @param string asset_dir
 	 * @return array sprockets_include_tag
 	 */
-	public function parse($file, $asset_dir) {
+	public function parse($file, $asset_dir, $no_tag = false) {
 
+		$this->no_tag 					= $no_tag;
 		$this->requested_bundle = $this->asset_root_dir . $asset_dir . $file;
 
 		$source 		= $this->File->read_source($this->requested_bundle);
