@@ -55,9 +55,9 @@ class Sprockets_File
 	public function save_file($file_path, $source)
 	{
 		$path = trim($file_path);
+		$successful = (file_put_contents($path, $source) !== false);
 
-		if ( ! $save = file_put_contents($path, $source) )
-		{
+		if ( !$successful ) {
 			throw new SprocketsFileException("$file_path could not be saved. Do you have write permissions?", 1);
 		}
 	}
