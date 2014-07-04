@@ -37,7 +37,9 @@ class Sprockets_File
 	{
 		$path = trim($file);
 
-		if ( $source = file_get_contents($path) )
+		$source = file_get_contents($path);
+
+		if ( $source !== false )
 		{
 			return $source;
 		} else {
