@@ -139,12 +139,13 @@ class Sprockets_Cache
 			}
 
 			# Pull up the file or recompile it if does not exist
-			if ( file_exists($expected_cached_file) ) {
+			if ( $expected_cached_file_exists = file_exists($expected_cached_file) ) {
 
 				$compiled_source .= $this->File->read_source($expected_cached_file);
 
 			}
-			else
+
+			if(!$expected_cached_file_exists or empty($compiled_source))
 			{
 
 				$source = $this->Compiler->compile($file["path"], $this->minify);
