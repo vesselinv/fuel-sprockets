@@ -13,6 +13,8 @@
 
 namespace Sprockets;
 
+use JSMin\JSMin;
+
 /**
  * Sprockets Compiler and Minifier
  *
@@ -239,7 +241,7 @@ class Sprockets_Compiler
 
 		if ( $this->minify == true )
 		{
-			return \JSMin::minify( $source );
+			return JSMin::minify( $source );
 		} else {
 			return "\n\n/** ". $this->file_path . " **/\n\n;" . $source;
 		}
