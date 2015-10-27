@@ -194,8 +194,8 @@ setting `force_minify` to `true` in the Sprockets config file.
 # Smart Caching #
 
 Fuel Sprockets is smart about caching. The final compiled source for each file that is
-included in your bundles in cached inside `fuel/app/cache/sprockets`. The Last Modified
-timestamp and minification flag (`.min`) are appended to the filename so that we can
+included in your bundles in cached inside `fuel/app/cache/sprockets`. An md5 string of the 
+file contents and minification flag (`.min`) are appended to the filename so that we can
 compare when your asset file has changed and whether the generated file is up-to-date.
 
 # Running Tests #
