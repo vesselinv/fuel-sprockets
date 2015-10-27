@@ -62,29 +62,29 @@ class Sprockets_Cache
 			break;
 		}
 
-		$mod_dates = array();	# Store only mod_dates
-		$file_list = array(); # Store both mod_date and path for each file
+		$file_md5s = array();	# Store only file md5
+		$file_list = array();	# Store both file_md5 and path for each file
 
-		# Get modification times of all files
+		# Get file md5s of all files
 		foreach ($filename_list as $i => $file) {
 
 			if ( ! $this->match_remote_url($file))
 			{
-				$mod_date = $this->File->get_filemtime($file); # Local file
+				$file_md5 = $this->File->get_file_md5($file); # Local file
 			}
 			else
 			{
-				$mod_date = $this->File->get_remotemtime($file); # Remote file
+				$file_md5 = md5($this->File->get_remotemtime($file)); # Remote file
 			}
 
-			$mod_dates[] = $mod_date;
+			$file_md5s[] = $file_md5;
 			$file_list[] = array(
 				"path" => $file,
-				"mod_date" => $mod_date
+				"file_md5" => $file_md5
 			);
 		}
 
-		$this->sprockets_file_timestamp = md5(implode('', $mod_dates));
+		$this->sprockets_file_timestamp = md5(implode('', $file_md5s));
 
 		$this->sprockets_filename 			=
 			$filename . "_" . $this->sprockets_file_timestamp . $this->minify_flag . "." . $ext;
@@ -109,11 +109,11 @@ class Sprockets_Cache
 	protected function reprocess_files($filename_list) {
 
 		$compiled_source = "";
-		$mod_date;
+		$file_md5 = "";
 
 		foreach ($filename_list as $i => $file) {
 
-			$mod_date = $file["mod_date"];
+			$file_md5 = $file["file_md5"];
 
 			# For local files
 			if ( ! $this->match_remote_url($file["path"]) )
@@ -128,7 +128,7 @@ class Sprockets_Cache
 				$ext = substr($relative_path, strrpos($relative_path, '.') + 1);
 
 				$expected_cached_file =
-					$this->file_cache_dir . $filename . "_" . $mod_date . $this->minify_flag . "." . $ext;
+					$this->file_cache_dir . $filename . "_" . $file_md5 . $this->minify_flag . "." . $ext;
 			}
 			else
 			{
@@ -152,7 +152,7 @@ class Sprockets_Cache
 				$save = $this->File->save_file($expected_cached_file, $source);
 
 				# Call GC
-				$this->remove_stale_files(str_replace($mod_date, "*", $expected_cached_file), $expected_cached_file);
+				$this->remove_stale_files(str_replace($file_md5, "*", $expected_cached_file), $expected_cached_file);
 
 				$compiled_source .= $source;
 			}
