@@ -142,6 +142,21 @@ class Sprockets_File
 
 	/**
 	 * @access 	public
+	 * @param 	string $file_path
+	 * @return 	string md5 of the file contents
+	 */
+	public function get_file_md5($file_path)
+	{
+		$path = trim($file_path);
+
+		if ( ! is_file($path) ) {
+			throw new SprocketsFileNotFoundException("Could not get File MD5 for $path", 1);
+		}
+		return md5_file($path);
+	}
+
+	/**
+	 * @access 	public
 	 * @param 	string filepath
 	 * @return 	int last modified time in UTC
 	 */
