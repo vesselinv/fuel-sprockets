@@ -5,7 +5,7 @@
  * Fuel is a fast, lightweight, community driven PHP5 framework.
  *
  * @package    Fuel Sprockets
- * @version    1.0
+ * @version    1.4
  * @author     Veselin Vasilev
  * @license    MIT License
  * @copyright  2013 Veselin Vasilev

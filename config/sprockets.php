@@ -10,7 +10,7 @@
  * order to avoid unnecessary recompilation
  *
  * @package    Fuel Sprockets
- * @version    1.3
+ * @version    1.4
  * @author     Veselin Vasilev @vesselinv
  * @license    MIT License
  * @copyright  2013 Veselin Vasilev
