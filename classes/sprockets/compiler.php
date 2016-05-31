@@ -13,7 +13,10 @@
 
 namespace Sprockets;
 
+require_once dirname(COREPATH).'/vendor/leafo/scssphp/scss.inc.php';
+
 use JSMin\JSMin;
+use Leafo\ScssPhp\Compiler;
 
 /**
  * Sprockets Compiler and Minifier
@@ -119,7 +122,7 @@ class Sprockets_Compiler
 	protected function compile_scss($source) {
 
 		# Initialise the Compass Compiler
-		$this->Compass = new \scssc();
+		$this->Compass = new Compiler();
 
 		# @import file not found fix
 		$this->Compass->addImportPath($this->file_import_dir);
