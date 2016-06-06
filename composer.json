@@ -6,6 +6,10 @@
     "config": {
         "vendor-dir": "vendor"
     },
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/YunjieZhang/scssphp" },
+        { "type": "vcs", "url": "https://github.com/YunjieZhang/scssphp-compass" }
+    ],
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.6",

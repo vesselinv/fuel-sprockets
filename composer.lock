@@ -1,22 +1,24 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "9b0b5d811ddc5d4d95af76d488827233",
+    "hash": "8627a2df68f01a7cf8cca465b2bafb1a",
+    "content-hash": "b08428b39d61e6d499e9413b2b8477c8",
     "packages": [
         {
             "name": "coffeescript/coffeescript",
             "version": "1.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/alxlit/coffeescript-php",
-                "reference": "1.3.1"
+                "url": "https://github.com/alxlit/coffeescript-php.git",
+                "reference": "ef262881d3f1edcca1366f4ddf18293843370da5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/alxlit/coffeescript-php/zipball/1.3.1",
-                "reference": "1.3.1",
+                "url": "https://api.github.com/repos/alxlit/coffeescript-php/zipball/ef262881d3f1edcca1366f4ddf18293843370da5",
+                "reference": "ef262881d3f1edcca1366f4ddf18293843370da5",
                 "shasum": ""
             },
             "require": {
@@ -47,26 +49,239 @@
                 "coffeescript",
                 "javascript"
             ],
-            "time": "2012-08-04 07:44:51"
+            "time": "2012-08-04 14:44:51"
         },
         {
-            "name": "leafo/lessphp",
-            "version": "v0.3.9",
+            "name": "composer/installers",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/leafo/lessphp.git",
-                "reference": "v0.3.9"
+                "url": "https://github.com/composer/installers.git",
+                "reference": "2db1f3ce7bcf0d294811f5f0214e24d2878a57da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/v0.3.9",
-                "reference": "v0.3.9",
+                "url": "https://api.github.com/repos/composer/installers/zipball/2db1f3ce7bcf0d294811f5f0214e24d2878a57da",
+                "reference": "2db1f3ce7bcf0d294811f5f0214e24d2878a57da",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0"
+            },
+            "replace": {
+                "roundcube/plugin-installer": "*",
+                "shama/baton": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev",
+                "phpunit/phpunit": "4.1.*"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Composer\\Installers\\Plugin",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Installers\\": "src/Composer/Installers"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "https://github.com/shama"
+                }
+            ],
+            "description": "A multi-framework Composer library installer",
+            "homepage": "https://composer.github.io/installers/",
+            "keywords": [
+                "Craft",
+                "Dolibarr",
+                "Hurad",
+                "ImageCMS",
+                "MODX Evo",
+                "Mautic",
+                "OXID",
+                "RadPHP",
+                "SMF",
+                "Thelia",
+                "WolfCMS",
+                "agl",
+                "aimeos",
+                "annotatecms",
+                "bitrix",
+                "cakephp",
+                "chef",
+                "codeigniter",
+                "concrete5",
+                "croogo",
+                "dokuwiki",
+                "drupal",
+                "elgg",
+                "fuelphp",
+                "grav",
+                "installer",
+                "joomla",
+                "kohana",
+                "laravel",
+                "lithium",
+                "magento",
+                "mako",
+                "mediawiki",
+                "modulework",
+                "moodle",
+                "phpbb",
+                "piwik",
+                "ppi",
+                "puppet",
+                "roundcube",
+                "shopware",
+                "silverstripe",
+                "symfony",
+                "typo3",
+                "wordpress",
+                "zend",
+                "zikula"
+            ],
+            "time": "2016-05-19 16:58:29"
+        },
+        {
+            "name": "container-interop/container-interop",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/container-interop/container-interop.git",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e",
                 "shasum": ""
             },
             "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Interop\\Container\\": "src/Interop/Container/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
+            "time": "2014-12-30 15:22:37"
+        },
+        {
+            "name": "firephp/firephp-core",
+            "version": "v0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/firephp/firephp-core.git",
+                "reference": "fabad0f2503f9577fe8dd2cb1d1c7cd73ed2aacf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/firephp/firephp-core/zipball/fabad0f2503f9577fe8dd2cb1d1c7cd73ed2aacf",
+                "reference": "fabad0f2503f9577fe8dd2cb1d1c7cd73ed2aacf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/FirePHPCore/FirePHP.class.php",
+                    "lib/FirePHPCore/fb.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christoph Dorn",
+                    "email": "christoph@christophdorn.com",
+                    "homepage": "http://christophdorn.com"
+                }
+            ],
+            "description": "Traditional FirePHPCore library for sending PHP variables to the browser.",
+            "homepage": "https://github.com/firephp/firephp-core",
+            "time": "2013-04-23 15:28:20"
+        },
+        {
+            "name": "intervention/httpauth",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/httpauth.git",
+                "reference": "320aff7dee3b6f99b46f00f69b15491296673ea6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/httpauth/zipball/320aff7dee3b6f99b46f00f69b15491296673ea6",
+                "reference": "320aff7dee3b6f99b46f00f69b15491296673ea6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Httpauth\\": "src/Intervention/Httpauth"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.com",
+                    "homepage": "http://olivervogel.com/"
+                }
+            ],
+            "description": "HTTP authentication (Basic & Digest) including ServiceProviders for easy Laravel integration",
+            "homepage": "https://github.com/Intervention/httpauth",
+            "keywords": [
+                "Authentication",
+                "http",
+                "laravel"
+            ],
+            "time": "2015-07-07 16:59:33"
+        },
+        {
+            "name": "leafo/lessphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/lessphp.git",
+                "reference": "e701984d5d488599441623d3d56bd42103019ab6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/e701984d5d488599441623d3d56bd42103019ab6",
+                "reference": "e701984d5d488599441623d3d56bd42103019ab6",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.3"
+            },
+            "bin": [
+                "plessc"
+            ],
+            "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.3-dev"
+                    "dev-master": "0.4.x-dev"
                 }
             },
             "autoload": {
@@ -88,39 +303,57 @@
             ],
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
-            "time": "2013-03-02 16:13:31"
+            "time": "2014-12-29 20:45:53"
         },
         {
             "name": "leafo/scssphp",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/leafo/scssphp.git",
-                "reference": "3c8346d849ad7c669a71f0c9cbf8ec719178a10d"
+                "url": "https://github.com/YunjieZhang/scssphp.git",
+                "reference": "a667091f2e1493406154cbcbd93dbb9ef83aa116"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp/zipball/3c8346d849ad7c669a71f0c9cbf8ec719178a10d",
-                "reference": "3c8346d849ad7c669a71f0c9cbf8ec719178a10d",
+                "url": "https://api.github.com/repos/YunjieZhang/scssphp/zipball/a667091f2e1493406154cbcbd93dbb9ef83aa116",
+                "reference": "a667091f2e1493406154cbcbd93dbb9ef83aa116",
                 "shasum": ""
             },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "php": ">=5.3.0",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "scss.inc.php"
+            "archive": {
+                "exclude": [
+                    "/Makefile",
+                    "/.gitattributes",
+                    "/.gitignore",
+                    "/.travis.yml",
+                    "/box.json.dist",
+                    "/phpunit.xml.dist",
+                    "/tests"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "kherge/box": "~2.5",
+                "phpunit/phpunit": "~3.7",
+                "squizlabs/php_codesniffer": "~2.5"
+            },
+            "bin": [
+                "bin/pscss"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Leafo\\ScssPhp\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Leafo\\ScssPhp\\Test\\": "tests/"
+                }
+            },
             "license": [
-                "MIT",
-                "GPL-3.0"
+                "MIT"
             ],
             "authors": [
                 {
@@ -130,21 +363,31 @@
                 }
             ],
             "description": "scssphp is a compiler for SCSS written in PHP.",
-            "homepage": "http://leafo.net/scssphp/",
-            "time": "2013-04-05 22:33:03"
+            "homepage": "http://leafo.github.io/scssphp/",
+            "keywords": [
+                "css",
+                "less",
+                "sass",
+                "scss",
+                "stylesheet"
+            ],
+            "support": {
+                "source": "https://github.com/YunjieZhang/scssphp/tree/master"
+            },
+            "time": "2016-06-06 05:57:00"
         },
         {
             "name": "leafo/scssphp-compass",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/leafo/scssphp-compass.git",
-                "reference": "f1631ddb17731326863954d99b39694f0bbed6ec"
+                "url": "https://github.com/YunjieZhang/scssphp-compass.git",
+                "reference": "60738a34e4d6d1151c6c2726fce2bba0649ea8d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp-compass/zipball/f1631ddb17731326863954d99b39694f0bbed6ec",
-                "reference": "f1631ddb17731326863954d99b39694f0bbed6ec",
+                "url": "https://api.github.com/repos/YunjieZhang/scssphp-compass/zipball/60738a34e4d6d1151c6c2726fce2bba0649ea8d4",
+                "reference": "60738a34e4d6d1151c6c2726fce2bba0649ea8d4",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +399,6 @@
                     "compass.inc.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Leaf Corcoran",
@@ -166,7 +408,140 @@
             ],
             "description": "Compass for scssphp",
             "homepage": "http://leafo.net/scssphp/",
-            "time": "2012-08-02 02:04:32"
+            "support": {
+                "source": "https://github.com/YunjieZhang/scssphp-compass/tree/master"
+            },
+            "time": "2016-06-06 06:12:23"
+        },
+        {
+            "name": "monolog/monolog",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "39aeecefaeacb43b7315399f37aee63b34930ec1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/39aeecefaeacb43b7315399f37aee63b34930ec1",
+                "reference": "39aeecefaeacb43b7315399f37aee63b34930ec1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/log": "~1.0"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0.0"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^2.4.9",
+                "doctrine/couchdb": "~1.0@dev",
+                "graylog2/gelf-php": "~1.0",
+                "jakub-onderka/php-parallel-lint": "0.9",
+                "php-amqplib/php-amqplib": "~2.4",
+                "php-console/php-console": "^3.1.3",
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "2.3.0",
+                "ruflin/elastica": ">=0.90 <3.0",
+                "sentry/sentry": "^0.13",
+                "swiftmailer/swiftmailer": "~5.3"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mongo": "Allow sending log messages to a MongoDB server",
+                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+                "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+                "sentry/sentry": "Allow sending log messages to a Sentry server"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Monolog\\": "src/Monolog"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+            "homepage": "http://github.com/Seldaek/monolog",
+            "keywords": [
+                "log",
+                "logging",
+                "psr-3"
+            ],
+            "time": "2016-05-26 21:44:25"
+        },
+        {
+            "name": "mrclay/jsmin-php",
+            "version": "2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrclay/jsmin-php.git",
+                "reference": "932c9633c35b390beb2cfdea69a41ea7dbc8d759"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mrclay/jsmin-php/zipball/932c9633c35b390beb2cfdea69a41ea7dbc8d759",
+                "reference": "932c9633c35b390beb2cfdea69a41ea7dbc8d759",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JSMin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Clay",
+                    "email": "steve@mrclay.org",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Ryan Grove",
+                    "email": "ryan@wonko.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessary whitespace from JavaScript files.",
+            "homepage": "https://github.com/mrclay/jsmin-php/",
+            "keywords": [
+                "compress",
+                "jsmin",
+                "minify"
+            ],
+            "time": "2015-03-30 15:04:42"
         },
         {
             "name": "mrclay/minify",
@@ -174,22 +549,42 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrclay/minify.git",
-                "reference": "6f5721d2db7f290a4528ea4c0b0be21621f670bc"
+                "reference": "de39966e9c2ba90b7e400f92b867f6592e34046f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrclay/minify/zipball/6f5721d2db7f290a4528ea4c0b0be21621f670bc",
-                "reference": "6f5721d2db7f290a4528ea4c0b0be21621f670bc",
+                "url": "https://api.github.com/repos/mrclay/minify/zipball/de39966e9c2ba90b7e400f92b867f6592e34046f",
+                "reference": "de39966e9c2ba90b7e400f92b867f6592e34046f",
                 "shasum": ""
             },
             "require": {
                 "ext-pcre": "*",
-                "php": ">=5.2.1"
+                "firephp/firephp-core": "~0.4.0",
+                "intervention/httpauth": "~2.0",
+                "monolog/monolog": "~1.1",
+                "mrclay/jsmin-php": "~2",
+                "mrclay/props-dic": "^2.2",
+                "php": ">=5.3.0",
+                "tubalmartin/cssmin": "~2.4.8"
+            },
+            "require-dev": {
+                "leafo/lessphp": "~0.4.0",
+                "meenie/javascript-packer": "~1.1",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "suggest": {
+                "leafo/lessphp": "LESS support",
+                "meenie/javascript-packer": "Keep track of the Packer PHP port using Composer"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
-                    "min/lib/"
+                    "lib/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -200,30 +595,214 @@
                 {
                     "name": "Stephen Clay",
                     "email": "steve@mrclay.org",
-                    "homepage": "http://www.mrclay.org/",
                     "role": "Developer"
                 }
             ],
             "description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
-            "homepage": "http://code.google.com/p/minify/",
-            "time": "2013-04-01 15:25:27"
+            "homepage": "https://github.com/mrclay/minify",
+            "time": "2016-05-12 17:29:54"
+        },
+        {
+            "name": "mrclay/props-dic",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrclay/Props.git",
+                "reference": "9ed6cf3a027f1eab03abdd134ec209467cf9c77e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mrclay/Props/zipball/9ed6cf3a027f1eab03abdd134ec209467cf9c77e",
+                "reference": "9ed6cf3a027f1eab03abdd134ec209467cf9c77e",
+                "shasum": ""
+            },
+            "require": {
+                "container-interop/container-interop": "^1.1",
+                "php": ">=5.3.3",
+                "pimple/pimple": "~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Props\\": [
+                        "src/",
+                        "test/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Clay",
+                    "email": "steve@mrclay.org",
+                    "homepage": "http://www.mrclay.org/"
+                }
+            ],
+            "description": "Props is a simple DI container that allows retrieving values via custom property and method names",
+            "keywords": [
+                "container",
+                "dependency injection",
+                "dependency injection container",
+                "di",
+                "di container"
+            ],
+            "time": "2016-02-10 18:59:20"
+        },
+        {
+            "name": "pimple/pimple",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "64e0f8320639b434baa073a40dd1e037e3286555"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/64e0f8320639b434baa073a40dd1e037e3286555",
+                "reference": "64e0f8320639b434baa073a40dd1e037e3286555",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2015-09-11 15:11:22"
+        },
+        {
+            "name": "psr/log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2016-01-06 21:40:42"
+        },
+        {
+            "name": "tubalmartin/cssmin",
+            "version": "v2.4.8-p4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port.git",
+                "reference": "fe84d71e8420243544c0ce3bd0f5d7c1936b0f90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tubalmartin/YUI-CSS-compressor-PHP-port/zipball/fe84d71e8420243544c0ce3bd0f5d7c1936b0f90",
+                "reference": "fe84d71e8420243544c0ce3bd0f5d7c1936b0f90",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "cssmin.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Túbal Martín",
+                    "homepage": "http://tubalmartin.me/"
+                }
+            ],
+            "description": "A PHP port of the YUI CSS compressor",
+            "homepage": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port",
+            "keywords": [
+                "compress",
+                "compressor",
+                "css",
+                "minify",
+                "yui"
+            ],
+            "time": "2014-09-22 08:08:50"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "mrclay/minify": 20,
         "leafo/scssphp-compass": 20
     },
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.6"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
