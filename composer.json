@@ -6,6 +6,9 @@
     "config": {
         "vendor-dir": "vendor"
     },
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/YunjieZhang/scssphp" }
+    ],
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.6",
